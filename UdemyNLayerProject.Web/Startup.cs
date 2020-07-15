@@ -17,6 +17,7 @@ using UdemyNLayerProject.Data;
 using UdemyNLayerProject.Data.Repositories;
 using UdemyNLayerProject.Data.UnitOfWorks;
 using UdemyNLayerProject.Service.Services;
+using UdemyNLayerProject.Web.ApiService;
 using UdemyNLayerProject.Web.Filters;
 
 namespace UdemyNLayerProject.Web
@@ -39,6 +40,11 @@ namespace UdemyNLayerProject.Web
             });
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddHttpClient<CategoryApiService>(opt=>
+            {
+                opt.BaseAddress = new Uri(Configuration["baseurl"]);
+
+            });
             services.AddScoped<NotFoundFilter>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IProductService, ProductService>();
